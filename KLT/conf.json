@@ -1,0 +1,22 @@
+{
+
+    "source_type": "directory",
+	
+	"general":{
+		"radius"		: 50,
+		"out_folder"	: "y:/research/suported/out",
+		"vanish_time"	: 5,
+		"out_token"		: ".trk",
+		"penalty_value" : 1.2
+	},
+	
+    "file": {
+        "file"		: "y:/research/out/224_1/props/224_2.prop"
+    },
+
+	"directory": {
+		"path"		: "Y:/research/suported/camera",
+		"token"		: ".prop"
+		
+	}
+}
