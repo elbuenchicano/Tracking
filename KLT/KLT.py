@@ -14,7 +14,9 @@ from Tracking import TrackletMan
 '''
 Individual tracking 
 '''
-def tracking_(file, video_file, radius, vanish_time, w , h, penalty_value, out_folder, out_token):
+def tracking_(file, video_file, radius, vanish_time, w , h, 
+              penalty_value, min_len, 
+              out_folder, out_token):
     
     frames  = []
     
@@ -38,7 +40,8 @@ def tracking_(file, video_file, radius, vanish_time, w , h, penalty_value, out_f
 
     name   = dire + '/' + base  
 
-    trk_manager = TrackletMan(name, out_token, radius, vanish_time, w, h, penalty_value)
+    trk_manager = TrackletMan(name, out_token, radius, vanish_time, w, h, 
+                              penalty_value, min_len)
     
     for frm in frames:
         #for each person detected by pose estimation
@@ -67,6 +70,7 @@ def trackingFile(general, individual):
     out_folder  = general['out_folder']
     out_token   = general['out_token']
     vanish_time = general['vanish_time']
+    min_len     = general['min_len']
     penalty_value = general['penalty_value']
     
     u_mkdir(out_folder)
@@ -85,7 +89,7 @@ def trackingFile(general, individual):
     video_file      = video_file.replace('/rensso/qnap','y:') 
 
     dire, filelist  = tracking_(tracklet_file, video_file, radius, 
-                    vanish_time, w, h, penalty_value, 
+                    vanish_time, w, h, penalty_value, min_len, 
                     out_folder, out_token)
 
     prop_track =  {

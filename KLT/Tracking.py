@@ -43,18 +43,28 @@ class Kalman2D:
     Tracklet collector based in kalman filter
 '''
 class Tracklet:
-    def __init__(self, point, frame, vanish_time):
+    #def __init__(self, point, frame, vanish_time, id):
+    def __init__(self, point, frame, id):
         self.kalman     = Kalman2D()
         self.kalman.initialize(point[0], point[1]) 
         self.points     = { frame: point }
-        self.lifes      = vanish_time
-        self.vanish     = vanish_time
+        #self.lifes      = vanish_time
+        #self.vanish     = vanish_time
+        self.id         = id
+        self.visited    = True
 
     #--------------------------------------------------------------------------
     #.......................................................................... 
     def update(self, point, frame):
         self.points[frame]  = point
         self.kalman.update(point[0], point[1])
+
+    #--------------------------------------------------------------------------
+    #.......................................................................... 
+    def predict(self):
+        self.kalman.update(self.kalman.predicted[0],
+                           self.kalman.predicted[1]
+            )
         
     #--------------------------------------------------------------------------
     #.......................................................................... 
@@ -76,17 +86,19 @@ class Tracklet:
 
         #distance predicted vs probe point
         dst1    = distance.euclidean(self.kalman.predicted, point)
-
+        
+        beginforce = radius/(2 * len(self.points))    
         score   = angle 
         # first tentative predicted vs income 
-        if dst1 < radius:
+        if dst1 < (radius + beginforce):
             # acos is between |-1 1| normalizing to |0 1| 
             # returning this score with no penalty
             return score
         
         # second tentative last vs income 
         dst2    = distance.euclidean(self.kalman.center, point)
-        # first tentative predicted vs income 
+        # first tentative predicted vs income
+        
         if dst2 < self.kalman.ntranslated:
             # acos is between |-1 1| normalizing to |0 1| 
             # returning this score with no penalty
@@ -103,7 +115,9 @@ class Tracklet:
     Tracklet manager
 '''
 class TrackletMan:
-    def __init__(self, name, token, radius, vanish_time, w, h, penalty_value):
+    def __init__(self, name, token, radius, vanish_time, w, h, penalty_value, 
+                 min_len):
+
         self.tracklets  = []
         self.radius     = radius
         self.vanish_time= vanish_time
@@ -115,12 +129,15 @@ class TrackletMan:
         self.token      = token
         self.id         = 0
         self.files      = []
+        self.minlen     = min_len
     
     #--------------------------------------------------------------------------
     #.......................................................................... 
     def matching (self, point_list, frame):
-        cost  = []
         
+        cost  = []
+        self.cleanOlds(frame)
+
         # computing score for each probe point
         for point in point_list:
             line_cost = []
@@ -131,7 +148,7 @@ class TrackletMan:
             cost.append(line_cost)
 
         # assign new tracklets..................................................
-        
+        print (cost)
         m = Munkres()
         indexes = m.compute(cost)
         
@@ -140,10 +157,13 @@ class TrackletMan:
         for point_pos, tracklet_pos in indexes:
             if cost[point_pos][tracklet_pos] < math.pi :
                 self.tracklets[tracklet_pos].update(point_list[point_pos], frame)
+                self.tracklets[tracklet_pos].visited = True 
                
             else :
-                new_tracklet = Tracklet(point_list[point_pos], frame, self.vanish_time)
+                #new_tracklet = Tracklet(point_list[point_pos], frame, self.vanish_time, self.id)
+                new_tracklet = Tracklet(point_list[point_pos], frame, self.id)
                 self.tracklets.append(new_tracklet)        
+                self.id     += 1
 
             # marking linked points
             observed[point_pos] = 1
@@ -151,18 +171,34 @@ class TrackletMan:
         point_pos = 0 
         for point in point_list:
             if not observed[point_pos] :
-                new_tracklet = Tracklet(point, frame, self.vanish_time)
+                #new_tracklet = Tracklet(point, frame, self.vanish_time, self.id)
+                new_tracklet = Tracklet(point, frame, self.id)
                 self.tracklets.append(new_tracklet)        
+                self.id     += 1
             point_pos += 1
 
-        # clean olds ...........................................................
-        track_temp = []
+        self.updateTracklets()
+
+    #--------------------------------------------------------------------------
+    #.......................................................................... 
+    # clean olds ...........................................................
+    def updateTracklets(self):
         for trk in self.tracklets:
-            trk.lifes -= frame - sorted(trk.points.keys())[-1]
-            if trk.lifes < 0:
+            if not trk.visited:
+                trk.predict()
+
+    #--------------------------------------------------------------------------
+    #.......................................................................... 
+    # clean olds ...........................................................
+    def cleanOlds(self, frame):
+        track_temp = []
+        #for trk in self.tracklets:
+        for trk in self.tracklets:
+            life = frame - sorted(trk.points.keys())[-1] 
+            if life > self.vanish_time:
                 # saving in file 
-                if len(trk.points) > 4:
-                    name = self.name + '_' +str(self.id)+ self.token
+                if len(trk.points) >= self.minlen:
+                    name = self.name + '_' +str(trk.id)+ self.token
                     line = ''
                     for frame_point in sorted(trk.points):
                         line += '%06d,' % frame_point 
@@ -171,17 +207,20 @@ class TrackletMan:
                     
                     u_save2File(name, line)
                     self.files.append(name)
-                    self.id  += 1
+                    
             else:
                 track_temp.append(trk)
+
+            # setting to False each tracklet for Kalman automatick tracking
+            trk.visited = False
 
         self.tracklets = track_temp
     #--------------------------------------------------------------------------
     #.......................................................................... 
     def dump(self):
         for trk in self.tracklets:
-            if len(trk.points) > 20:
-                name = self.name + '_' + str(self.id)+ self.token
+            if len(trk.points) >= self.minlen:
+                name = self.name + '_' + str(trk.id)+ self.token
                 line = ''
 
                 for frame_point in sorted(trk.points):
@@ -191,7 +230,7 @@ class TrackletMan:
                     
                 u_save2File(name, line)
                 self.files.append(name)
-                self.id  += 1
+                
 
                 
 # class Tracking_man

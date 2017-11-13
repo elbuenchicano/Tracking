@@ -1,17 +1,18 @@
 {
 
-    "source_type": "directory",
+    "source_type": "file",
 	
 	"general":{
-		"radius"		: 50,
-		"out_folder"	: "y:/research/suported/out",
-		"vanish_time"	: 5,
+		"radius"		: 80,
+		"out_folder"	: "d:/research/pose/trks",
+		"vanish_time"	: 10,
 		"out_token"		: ".trk",
-		"penalty_value" : 1.2
+		"penalty_value" : 1.2,
+		"min_len"		: 10
 	},
 	
     "file": {
-        "file"		: "y:/research/out/224_1/props/224_2.prop"
+        "file"		: "d:/research/pose/2017-05-12_15-52-59~15-55-01.prop"
     },
 
 	"directory": {
