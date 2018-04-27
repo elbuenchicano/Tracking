@@ -1,23 +1,39 @@
 {
 
-    "source_type": "file",
+    "source_type": "show_anomalies",
 	
 	"general":{
-		"radius"		: 80,
-		"out_folder"	: "d:/research/pose/trks",
-		"vanish_time"	: 10,
+		"radius"		: 50,
+		"out_folder"	: "y:/Anomalies/subway/entrance/test12",
+		"vanish_time"	: 8,
 		"out_token"		: ".trk",
-		"penalty_value" : 1.2,
+		"penalty_value" : 1.3,
 		"min_len"		: 10
 	},
 	
-    "file": {
-        "file"		: "d:/research/pose/2017-05-12_15-52-59~15-55-01.prop"
+    "file"				: {
+        "file"		: "Y:/Anomalies/subway/entrance/props/entrance.prop"
     },
 
-	"directory": {
-		"path"		: "Y:/research/suported/camera",
+	"directory"			: {
+		"path"		: "y:/Anomalies/subway",
 		"token"		: ".prop"
 		
+	},
+	"show_tracklets"	: {
+		"file"		: "Y:/Anomalies/subway/entrance/test1/entrance/entrance.propt", 
+		"ini"		: 30000,
+		"fin"		: 139405,
+		"trkfile"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
+		"record"	: [1, "y:/Anomalies/subway/entrance"] 
+	},
+	
+	"show_anomalies"	: {
+		"file"		: "Y:/Anomalies/subway/entrance/test1/entrance/entrance.propt", 
+		"ini"		: 89500,
+		"fin"		: 89900,
+		"anom_trk"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
+		"record"	: [1, "y:/Anomalies/subway/entrance"] 
 	}
+	
 }

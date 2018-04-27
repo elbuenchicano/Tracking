@@ -28,6 +28,9 @@
     </Compile>
     <Compile Include="utils.py" />
     <Compile Include="utils_video_image.py" />
+    <Compile Include="video.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|VisualStudio|tensorfull" />

@@ -80,9 +80,18 @@ class Tracklet:
         v1      = np.subtract(point, self.kalman.actual)
         nv1     = np.linalg.norm(v1)      
         dot_v1v2= np.dot( v1 , self.kalman.translated)
-        angle   = math.acos(                    dot_v1v2 /
-                                ( (nv1 * self.kalman.ntranslated) + 1e-7) 
-                            )
+
+        divider = (nv1 * self.kalman.ntranslated) + 1e-10
+        
+        result  = dot_v1v2 / divider
+
+        if result < -1:
+            result = -1
+
+        if result > 1:
+            result = 1
+        
+        angle   = math.acos( result )
 
         #distance predicted vs probe point
         dst1    = distance.euclidean(self.kalman.predicted, point)
@@ -148,7 +157,7 @@ class TrackletMan:
             cost.append(line_cost)
 
         # assign new tracklets..................................................
-        print (cost)
+        #print (cost)
         m = Munkres()
         indexes = m.compute(cost)
         

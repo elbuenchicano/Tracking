@@ -1,0 +1,30 @@
+{
+
+    "source_type": "show_tracklets",
+	
+	"general":{
+		"radius"		: 40,
+		"out_folder"	: "y:/Anomalies/umn",
+		"vanish_time"	: 10,
+		"out_token"		: ".trk",
+		"penalty_value" : 1.1,
+		"min_len"		: 15
+	},
+	
+    "file"				: {
+        "file"		: "Y:/research/suported/camera/2017-04-25_14-39-15~14-40-00/props/2017-04-25_14-39-15~14-40-00.prop"
+    },
+
+	"directory"			: {
+		"path"		: "y:/Anomalies/umn",
+		"token"		: ".prop"
+		
+	},
+	"show_tracklets"	: {
+		"file"		: "Y:/Anomalies/umn/crowd/crowd.propt", 
+		"ini"		: 0,
+		"fin"		: 10000000,
+		"record"	: [0,""]
+	}
+	
+}
