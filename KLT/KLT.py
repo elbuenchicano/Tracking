@@ -150,6 +150,11 @@ def trackingDir(general, individual):
                                     general     = general,
                                     individual  = {"file": root + '/' + file}
                                     )
+                
+                base = file.split('.')[0]
+                name_filelist = out_folder + '/filelist_trk_'+ base + '.lst'
+                u_saveList2File(name_filelist ,filelist_ind)
+
                 filelist_trk    += filelist_ind
                 filelist_propt.append(propt)
 
@@ -384,7 +389,7 @@ def _main():
                 'show_tracklets': showTracklets,
                 'show_anomalies': showAnomalies}
 
-    conf    = u_getPath('conf.json')
+    conf    = u_getPath('umn.json')#original conf.json
     confs   = json.load(open(conf))
 
     #...........................................................................

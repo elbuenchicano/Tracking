@@ -1,0 +1,39 @@
+{
+
+    "source_type": "show_tracklets",
+	
+	"general":{
+		"radius"		: 30,
+		"out_folder"	: "y:/Anomalies/umn/seq1",
+		"vanish_time"	: 8,
+		"out_token"		: ".trk",
+		"penalty_value" : 1.3,
+		"min_len"		: 10
+	},
+	
+    "file"				: {
+        "file"		: "Y:/Anomalies/subway/entrance/props/entrance.prop"
+    },
+
+	"directory"			: {
+		"path"		: "y:/Anomalies/umn/seq1",
+		"token"		: ".prop"
+		
+	},
+	"show_tracklets"	: {
+		"file"		: "Y:/Anomalies/umn/seq1/crowd_0_496_train_1/crowd_0_496_train_1.prop", 
+		"ini"		: 0,
+		"fin"		: 139405,
+		"trkfile_"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
+		"record"	: [0, "y:/Anomalies/umn"] 
+	},
+	
+	"show_anomalies"	: {
+		"file"		: "Y:/Anomalies/subway/entrance/test1/entrance/entrance.propt", 
+		"ini"		: 89500,
+		"fin"		: 89900,
+		"anom_trk"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
+		"record"	: [1, "y:/Anomalies/subway/entrance"] 
+	}
+	
+}
