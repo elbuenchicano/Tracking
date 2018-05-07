@@ -1,14 +1,14 @@
 {
 
-    "source_type": "directory",
+    "source_type": "show_tracklets",
 	
 	"general":{
-		"radius"		: 40,
-		"out_folder"	: "y:/Anomalies/umn",
-		"vanish_time"	: 10,
+		"radius"		: 30,
+		"out_folder"	: "y:/Anomalies/umn/seq2",
+		"vanish_time"	: 8,
 		"out_token"		: ".trk",
-		"penalty_value" : 1.1,
-		"min_len"		: 15
+		"penalty_value" : 1.2,
+		"min_len"		: 10
 	},
 	
     "file"				: {
@@ -16,12 +16,12 @@
     },
 
 	"directory"			: {
-		"path"		: "y:/Anomalies/umn",
+		"path"		: "y:/Anomalies/umn/seq2",
 		"token"		: ".prop"
 		
 	},
 	"show_tracklets"	: {
-		"file"		: "Y:/Anomalies/umn/crowd/crowd.propt", 
+		"file"		: "Y:/Anomalies/umn/seq2/crowd_620_1294_train_2/crowd_620_1294_train_2.propt", 
 		"ini"		: 0,
 		"fin"		: 10000000,
 		"record"	: [0,""]

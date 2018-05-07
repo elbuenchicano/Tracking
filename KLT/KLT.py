@@ -121,7 +121,7 @@ def trackingFile(general, individual):
     out_conf    = {**general, **individual}
     namec        = dire + '/' + base  + '.conf'
     print ('Save data in: ', namec)
-    with open(name, 'w') as outfile:  
+    with open(namec, 'w') as outfile:  
         json.dump(out_conf, outfile)    
     return filelist, name
 
@@ -389,7 +389,7 @@ def _main():
                 'show_tracklets': showTracklets,
                 'show_anomalies': showAnomalies}
 
-    conf    = u_getPath('umn.json')#original conf.json
+    conf    = u_getPath('crowd.json')#original conf.json
     confs   = json.load(open(conf))
 
     #...........................................................................
