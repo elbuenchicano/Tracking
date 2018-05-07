@@ -1,6 +1,6 @@
 {
 
-    "source_type": "show_tracklets",
+    "source_type": "directory",
 	
 	"general":{
 		"radius"		: 40,

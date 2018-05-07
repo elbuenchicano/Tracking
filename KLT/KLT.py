@@ -113,14 +113,14 @@ def trackingFile(general, individual):
     name = dire + '/' + base  + '.propt'
         
     #saving in file
-    print ('Save prop in: ', name)
+    print ('Save propt in: ', name)
     with open(name, 'w') as outfile:  
         json.dump(prop_track, outfile)
 
     #saving in file
     out_conf    = {**general, **individual}
-    name        = dire + '/' + base  + '.conf'
-    print ('Save data in: ', name)
+    namec        = dire + '/' + base  + '.conf'
+    print ('Save data in: ', namec)
     with open(name, 'w') as outfile:  
         json.dump(out_conf, outfile)    
     return filelist, name
@@ -188,7 +188,7 @@ def prepareData(directory, token):
     
     for i in range(nfiles):
         u_progress(i, nfiles)
-        id    = int(files[i].split('_')[1].split('.')[0])
+        id    = int(files[i].split('_')[-1].split('.')[0])
         loadDict(files[i], frames, id)
        
 
