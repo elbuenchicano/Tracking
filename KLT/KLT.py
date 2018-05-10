@@ -257,6 +257,8 @@ def showTracklets(general, individual):
         h       = int(data['video_h'])
 
         out_dir = record[1]
+        u_mkdir(out_dir)
+
         name    = out_dir +  '/redord.avi' 
 
         fourcc  = cv2.VideoWriter_fourcc(*'XVID')

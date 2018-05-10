@@ -21,11 +21,11 @@
 		
 	},
 	"show_tracklets"	: {
-		"file"		: "Y:/Anomalies/subway/entrance/test1/entrance/entrance.propt", 
-		"ini"		: 30000,
+		"file"		: "Y:/Anomalies/subway/umn/seq2/crowd_1294_1431_test_2.propt", 
+		"ini"		: 0,
 		"fin"		: 139405,
-		"trkfile"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
-		"record"	: [1, "y:/Anomalies/subway/entrance"] 
+		"trkfile_"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
+		"record"	: [0, "y:/Anomalies/subway/entrance"] 
 	},
 	
 	"show_anomalies"	: {
