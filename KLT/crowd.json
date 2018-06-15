@@ -1,14 +1,14 @@
 {
 
-    "source_type": "show_tracklets",
+    "source_type": "record_from_list",
 	
 	"general":{
-		"radius"		: 30,
-		"out_folder"	: "y:/Anomalies/umn/seq2",
+		"radius"		: 50,
+		"out_folder"	: "y:/Anomalies/umn/trks_x2",
 		"vanish_time"	: 8,
 		"out_token"		: ".trk",
 		"penalty_value" : 1.2,
-		"min_len"		: 10
+		"min_len"		: 5
 	},
 	
     "file"				: {
@@ -16,16 +16,35 @@
     },
 
 	"directory"			: {
-		"path"		: "y:/Anomalies/umn/seq2",
+		"path"		: "y:/Anomalies/umn/props_2",
 		"token"		: ".prop"
 		
 	},
 	"show_tracklets"	: {
-		"file"		: "Y:/Anomalies/umn/seq2/crowd_1294_1431_test_2/crowd_1294_1431_test_2.propt", 
+		"file"		: "Y:/Anomalies/umn/trks_x2/crowd_1760_2000_2/crowd_1760_2000_2.propt", 
 		"ini"		: 0,
-		"fin"		: 139405,
-		"trkfile_"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
-		"record"	: [1, "Y:/Anomalies/umn/seq2/records"] 
+		"fin"		: 1000000,
+		"trkfile_"	: "Y:/Anomalies/umn/temporal3/s3/outputs/Auto_Recu_15_test_th_30.lst",
+		"record"	: [1, "Y:/Anomalies/umn/recs"] 
+	},
+	
+	"show_anomalies"	: {
+		"file"		: "Y:/Anomalies/umn/trks_x2/crowd_1760_2000_2/crowd_1760_2000_2.propt", 
+		"ini"		: 0,
+		"fin"		: 89900,
+		"anom_trk"	: "Y:/Anomalies/umn/temporal3/s3/outputs/Auto_Recu_15_test_th_30.lst",
+		"record"	: [1, "y:/Anomalies/umn/recs"] 
+	},
+	"update_list"		:{
+		"flist"		: "y:/research/suported/fwdlistadevideos/reduced1/anomalia",
+		"token"		: "txt",
+		"dir_target": "Y:/research/suported/trks",
+		"out_file"	: "y:/anomalies/lab/anomaly_propt_list.lst"
+	
+	},
+	"record_from_list"	:{
+		"flist"		: "y:/anomalies/umn/trks/filelist_propt.lst",
+		"out_dir"	: "z:/tmp/anomalies/records2"
 	}
 	
 }

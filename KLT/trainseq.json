@@ -1,0 +1,39 @@
+{
+
+    "source_type": "show_tracklets",
+	
+	"general":{
+		"radius"		: 20,
+		"out_folder"	: "y:/Anomalies/train/test2",
+		"vanish_time"	: 10,
+		"out_token"		: ".trk",
+		"penalty_value" : 1.2,
+		"min_len"		: 3
+	},
+	
+    "file"				: {
+        "file"		: "Y:/Anomalies/subway/entrance/props/entrance.prop"
+    },
+
+	"directory"			: {
+		"path"		: "y:/Anomalies/train",
+		"token"		: ".prop"
+		
+	},
+	"show_tracklets"	: {
+		"file"		: "y:/Anomalies/train/test2/input/input.propt", 
+		"ini"		: 13800,
+		"fin"		: 18000,
+		"trkfile"	: "y:/Anomalies/train/test2/temporal/outputs/Auto_Recu_15_test_th_15.lst",
+		"record"	: [1, "Y:/Anomalies/train/test2"] 
+	},
+	
+	"show_anomalies"	: {
+		"file"		: "Y:/Anomalies/subway/entrance/test1/entrance/entrance.propt", 
+		"ini"		: 89500,
+		"fin"		: 89900,
+		"anom_trk"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
+		"record"	: [1, "y:/Anomalies/subway/entrance"] 
+	}
+	
+}

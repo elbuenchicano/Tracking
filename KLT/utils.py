@@ -3,6 +3,7 @@ import yaml
 import os
 import argparse
 import json
+import re
 
 ################################################################################
 ################################################################################
@@ -122,11 +123,11 @@ def u_loadFileManager(directive, token = ''):
         file_list = []
         file = open(directive)
         for item in file:
-            item  = item.strip()
             file_list.append(item)
     else:
         file_list   = u_listFileAll(directive, token)
-    return file_list
+
+    return sorted(file_list, key = u_stringSplitByNumbers)
 
 ################################################################################
 ################################################################################
@@ -154,3 +155,10 @@ def u_replaceStrList(str_list, token1, token2):
     for i in range(len(str_list)):
         str_list = str_list.replace(token1, token2)
     return str_list
+
+################################################################################
+################################################################################
+def u_stringSplitByNumbers(x):
+    r = re.compile('(\d+)')
+    l = r.split(x)
+    return [int(y) if y.isdigit() else y for y in l]

@@ -1,39 +1,39 @@
 {
 
-    "source_type": "show_anomalies",
+    "source_type": "show_tracklets",
 	
 	"general":{
 		"radius"		: 50,
-		"out_folder"	: "y:/Anomalies/subway/entrance/test12",
-		"vanish_time"	: 8,
+		"out_folder"	: "y:/Anomalies/train/test3",
+		"vanish_time"	: 10,
 		"out_token"		: ".trk",
-		"penalty_value" : 1.3,
-		"min_len"		: 10
+		"penalty_value" : 1.5,
+		"min_len"		: 3
 	},
 	
     "file"				: {
-        "file"		: "Y:/Anomalies/subway/entrance/props/entrance.prop"
+        "file"		: "y:/Anomalies/train/props/input.prop"
     },
 
 	"directory"			: {
-		"path"		: "y:/Anomalies/subway",
+		"path"		: "y:/Anomalies/avenue/avenue/test",
 		"token"		: ".prop"
 		
 	},
 	"show_tracklets"	: {
-		"file"		: "Y:/Anomalies/subway/umn/seq2/crowd_1294_1431_test_2.propt", 
+		"file"		: "y:/Anomalies/train/test2/input/input.propt", 
 		"ini"		: 0,
-		"fin"		: 139405,
-		"trkfile_"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
-		"record"	: [0, "y:/Anomalies/subway/entrance"] 
+		"fin"		: 189405,
+		"trkfile_"	: "Y:/Anomalies/train/test2/temporal/outputs/Auto_Recu_15_test_th_11.lst",
+		"record"	: [1, "y:/Anomalies/train"] 
 	},
 	
 	"show_anomalies"	: {
-		"file"		: "Y:/Anomalies/subway/entrance/test1/entrance/entrance.propt", 
-		"ini"		: 89500,
+		"file"		: "y:/Anomalies/avenue/trks/test/01/01.propt", 
+		"ini"		: 0,
 		"fin"		: 89900,
-		"anom_trk"	: "Y:/Anomalies/subway/entrance/test1/temporal/outputs/Auto_Recu_15_test_th_52.txt",
-		"record"	: [1, "y:/Anomalies/subway/entrance"] 
+		"anom_trk"	: "Y:/Anomalies/avenue/temporal/outputs/Auto_Recu_15_01_test_th_15.lst",
+		"record"	: [0, "y:/Anomalies/subway/entrance"] 
 	}
 	
 }

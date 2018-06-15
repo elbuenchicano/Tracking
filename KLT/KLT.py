@@ -153,20 +153,21 @@ def trackingDir(general, individual):
                 
                 base = file.split('.')[0]
                 name_filelist = out_folder + '/filelist_trk_'+ base + '.lst'
-                u_saveList2File(name_filelist ,filelist_ind)
+                u_saveList2File(name_filelist ,sorted(filelist_ind, key = u_stringSplitByNumbers))
 
                 filelist_trk    += filelist_ind
                 filelist_propt.append(propt)
 
     name_filelist = out_folder + '/filelist_trk.lst'
-    u_saveList2File(name_filelist ,filelist_trk)
+    u_saveList2File(name_filelist , sorted( filelist_trk, key = u_stringSplitByNumbers))
 
     name_filelist = out_folder + '/filelist_propt.lst'
-    u_saveList2File(name_filelist ,filelist_propt)
+    u_saveList2File(name_filelist , sorted( filelist_propt, key = u_stringSplitByNumbers)) 
 
 ################################################################################
 ################################################################################
 def loadDict(file, frames, id):
+    file = str.strip(file)
     for line in open(file, 'r'):
         if len(line) > 1:
             frm, point  = line.split(',')
@@ -259,8 +260,10 @@ def showTracklets(general, individual):
         out_dir = record[1]
         u_mkdir(out_dir)
 
-        name    = out_dir +  '/redord.avi' 
-
+        video_n = os.path.basename(video_file)        
+        video_n = video_n.split('.')[0]
+        name    = out_dir + '/' +  video_n + '_'  + str(ini) +'_' + str(fin)+ '.avi' 
+        
         fourcc  = cv2.VideoWriter_fourcc(*'XVID')
         out     = cv2.VideoWriter(name ,fourcc, 10.0, (w,h))
         
@@ -276,7 +279,7 @@ def showTracklets(general, individual):
 
                 cv2.putText(image, str(vid.current-1), (0, 28), font, 1, (0,0,255), 2, cv2.LINE_AA)
 
-                out.write(image)
+            out.write(image)
             
             ret, image =  vid.getCurrent()
 
@@ -308,6 +311,7 @@ def showAnomalies(general, individual):
     
     video_file      = data['video_file']
     video_file      = video_file.replace('/datasets/DATASETS', 'z:/DATASETS')
+    #video_file      = video_file.replace('\\', '/')
     tracklet_token  = data['tracklet_token']
     
     #ini             = data['video_ini']
@@ -359,7 +363,9 @@ def showAnomalies(general, individual):
         h       = int(data['video_h'])
 
         out_dir = record[1]
-        name    = out_dir +  '/redord_anomalies_' + str(ini) +'_' + str(fin)+ '.avi' 
+        video_n = os.path.basename(video_file)
+        video_n = video_n.split('.')[0]
+        name    = out_dir + '/' +  video_n + '_'  + str(ini) +'_' + str(vid.pos_fin) + '.avi' 
 
         fourcc  = cv2.VideoWriter_fourcc(*'XVID')
         out     = cv2.VideoWriter(name ,fourcc, 10.0, (w,h))
@@ -383,15 +389,56 @@ def showAnomalies(general, individual):
 
         out.release()
 
+################################################################################ 
+################################################################################ 
+def recordFromList(general, individual):
+    flist   = individual['flist']
+    out_dir = individual['out_dir']
+
+    flist   = u_fileList2array(flist)
+    u_mkdir(out_dir)
     
+    for file in flist:
+        indi	= {
+		'file'		: file, 
+		'ini'		: 0,
+		'fin'		: 1394050,
+		'trkfile_'	: '',
+		'record'	: [1, out_dir] 
+	    }
+        showTracklets({}, indi)
+    
+################################################################################ 
+################################################################################ 
+def updateList(general, individual):
+    flist       = individual['flist']
+    token       = individual['token']
+    dir_target  = individual['dir_target']
+    out_file    = individual['out_file']
+
+    flist       = u_loadFileManager(flist, token)
+    propt_list  = []
+
+    for file in flist:
+        anom_files = u_fileList2array(file) 
+        for anom_f in anom_files:
+            anom_f  = anom_f.split('.')[0]
+            anom_p  = dir_target + '/' + anom_f + '/'  + anom_f +  '.propt'
+            propt_list.append(anom_p)
+
+    u_saveArray2File(out_file, propt_list)
+
+
 ################################ Main controler ################################
 def _main():
     funcdict = {'file'          : trackingFile,
                 'directory'     : trackingDir,
                 'show_tracklets': showTracklets,
-                'show_anomalies': showAnomalies}
+                'show_anomalies': showAnomalies,
+                'update_list'   : updateList,
+                'record_from_list'  : recordFromList }
 
-    conf    = u_getPath('crowd.json')#original conf.json
+    conf    = u_getPath('conf.json')#original conf.json    
     confs   = json.load(open(conf))
 
     #...........................................................................
